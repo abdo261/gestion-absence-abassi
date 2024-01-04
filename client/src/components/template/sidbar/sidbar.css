@@ -1,0 +1,40 @@
+.sidbar {
+  background-color: var(--slate);
+  height: 100%;
+  position: relative;
+}
+.logo {
+  font-size: var(--fsize-7);
+}
+.img-logo {
+  width: var(--fsize-12);
+}
+.navbar-nav {
+  margin-top: 20px;
+}
+a.nav-link {
+  padding: 10px 0px 10px 10%;
+}
+a.active {
+  border-left: 3px solid black;
+  background-color:var(--light) ;
+}
+.nav-link:hover {
+  background-color: var(--light-blue);
+}
+
+@media only screen and (max-width: 700px) {
+
+  a.nav-link span {
+    display: none;
+  }
+
+  a.nav-link{
+    display: flex;
+    justify-content: center;
+    padding: 10px 0px 10px 0;
+  }
+  .logo span {
+    display: none;
+  }
+}

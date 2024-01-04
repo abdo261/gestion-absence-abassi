@@ -1,0 +1,21 @@
+.header{
+    background-color: var(--dark);
+    color: var(--light);
+    padding: 5px 5%;
+
+}
+.header-right-profile{
+    /* color: var(--light); */
+    cursor: pointer;
+}
+.header-right-notification{
+cursor: pointer;
+}
+.header-notification {
+    cursor: pointer;
+  }
+  .toggle-notification{
+   width: 200px;
+   height: 400px;
+   position: absolute ;
+  }
