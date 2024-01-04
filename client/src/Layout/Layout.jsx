@@ -12,7 +12,11 @@ const toggleShow = ()=>{
   return (
     <main className={show ? 'space-toggle' : null}>
   <Sidebar show={show} toggleShow={toggleShow}/>
+  <div className="content">
     <Outlet />
+  </div>
+
+    
     </main>
   )
 }

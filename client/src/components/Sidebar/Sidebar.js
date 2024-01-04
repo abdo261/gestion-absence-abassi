@@ -1,9 +1,9 @@
 import './index.css';
 import { Link, NavLink } from 'react-router-dom';
-import {  BsHouse, BsBuilding, BsFillPersonFill, BsClipboard, BsList, BsFileText, BsX, BsBoxArrowRight, BsBoxArrowInLeft } from 'react-icons/bs'; // Import Bootstrap icons
+import {  BsHouse, BsBuilding, BsFillPersonFill, BsClipboard, BsList, BsFileText, BsX,  BsBoxArrowInLeft } from 'react-icons/bs'; // Import Bootstrap icons
 
 const Sidebar = ({ show, toggleShow }) => {
-  const closeIcon = show ? <BsX /> : <BsList />;
+  const closeIcon = show ? <BsX size={30}/> : <BsList size={30} />;
   const logoutIcon = <BsBoxArrowInLeft />;
 
   const Links = [
@@ -51,14 +51,14 @@ const Sidebar = ({ show, toggleShow }) => {
         <nav className='nav'>
           <div>
             <Link to='/' className='nav-logo d-flex align-items-center '>
-              <img src='/logo.png' className='imag-logo'/>
+              <img src='/logo.png' className='imag-logo' alt='logo'/>
               <span className='nav-logo-name'>Blog</span>
             </Link>
 
             <div className='nav-list'>
               {Links.map((link, index) => (
-                <NavLink to={link.link} className='nav-link-iteme d-flex align-items-center fw-normal' key={index}>
-                  {<link.icon className='nav-link-icon' />} {/* Render the Bootstrap icon directly */}
+                <NavLink to={link.link} className='nav-link-iteme d-flex align-items-center fw-bold' key={index}>
+                  {<link.icon className='nav-link-icon' size={20} />} {/* Render the Bootstrap icon directly */}
                   <span className='nav-link-name'>{link.name}</span>
                 </NavLink>
               ))}

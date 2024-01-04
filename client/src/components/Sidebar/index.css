@@ -28,6 +28,7 @@ main {
   /* padding: 0 1rem; */
   font-size: 1rem;
   transition: 0.5s;
+  background-color: var(--secondary);
 }
 
 .header {
@@ -89,13 +90,14 @@ main {
 
 .nav-logo-icon {
   font-size: 1.25rem;
-  color: var(--primary-blue);
+  color: var(--black);
   cursor: pointer;
 }
 
 .nav-logo-name {
-  font-weight: 700;
-  color: var(--primary-blue);
+  font-weight: 600;
+  font-size: 29px;
+  color: var(--black);
 }
 
 .nav-link-iteme {
@@ -103,16 +105,19 @@ main {
   color: var(--black);
   transition: 0.5s;
   margin-bottom: 1.5rem;
+ 
 }
 
 .nav-link-iteme:hover {
   color: var(--primary-blue);
   background-color: var(--secondary);
+ 
 }
 
 .active {
   color: var(--primary-blue);
   background-color: var(--secondary);
+  font-weight: 700;
 }
 
 .active::before {
