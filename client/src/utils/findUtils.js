@@ -1,0 +1,1 @@
+export const countEtablissementForCommuns = (etablissments=[],id)=> etablissments?.filter(e=>e?.commune===id)?.length

@@ -1,6 +1,6 @@
 import './index.css';
 import { Link, NavLink } from 'react-router-dom';
-import {  BsHouse, BsBuilding, BsFillPersonFill, BsClipboard, BsList, BsFileText, BsX,  BsBoxArrowInLeft } from 'react-icons/bs'; // Import Bootstrap icons
+import {  BsAward,BsClipboard2Plus,BsPeopleFill, BsBuilding, BsPersonBadge, BsList, BsFileText, BsX,  BsBoxArrowInLeft } from 'react-icons/bs'; // Import Bootstrap icons
 
 const Sidebar = ({ show, toggleShow }) => {
   const closeIcon = show ? <BsX size={30}/> : <BsList size={30} />;
@@ -10,7 +10,7 @@ const Sidebar = ({ show, toggleShow }) => {
     {
       name: 'Commune',
       link: '/commune',
-      icon:BsHouse ,
+      icon:BsAward ,
     },
     {
       name: 'Etablissement',
@@ -20,17 +20,17 @@ const Sidebar = ({ show, toggleShow }) => {
     {
       name: 'Enseignant',
       link: '/enseignant',
-      icon: BsFillPersonFill,
+      icon: BsPeopleFill,
     },
     {
       name: 'Responsable',
       link: '/responsable',
-      icon: BsList,
+      icon: BsPersonBadge,
     },
     {
       name: 'Absence',
       link: '/absence',
-      icon: BsClipboard,
+      icon: BsClipboard2Plus,
     },
     {
       name: 'Document',
