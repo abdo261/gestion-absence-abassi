@@ -40,7 +40,7 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--primary-blue);
+  /* background-color: ; */
   padding: 0 1rem;
   transition: 0.5s;
 }
@@ -48,7 +48,7 @@ main {
 .header-toggle {
   font-size: 1.25rem;
   cursor: pointer;
-  color: var(--first-color);
+  color: var(--black);
 
 }
 

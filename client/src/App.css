@@ -27,5 +27,26 @@ button.refrech-btn{
     padding: 20px;
     /* Additional styling as needed */
   }
+  table{
+    font-size: smaller;
+  }
+  td,th {
+    vertical-align: middle;
+  }
+  td{
+    font-weight: 600;
+  }
+  .btn-ajoute{
+    cursor: pointer;
+  font-weight: 700;
+  }
+  .btn-ajoute:hover{
+    color: black;
+  }
+  @media screen and (max-width: 768px) {
+div.content{
+    padding: 2px 5px;
+}
+  }
   
   

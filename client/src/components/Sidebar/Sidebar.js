@@ -41,7 +41,7 @@ const Sidebar = ({ show, toggleShow }) => {
 
   return (
     <>
-      <header className={`header ${show ? 'space-toggle' : null}`}>
+      <header className={`bg-secondary-subtle header ${show ? 'space-toggle' : null}`}>
         <div className='header-toggle' onClick={toggleShow}>
           {closeIcon}
         </div>
