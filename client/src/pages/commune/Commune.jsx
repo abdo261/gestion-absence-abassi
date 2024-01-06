@@ -11,6 +11,7 @@ import SpinerBs from "../../components/share/SpinerBs";
 import ErrorAlert from "../../components/share/ErrorAlert";
 import Details from "./shildren/Details";
 import { communeAction } from "../../redux/slices/communeSlice";
+import Edite from "./shildren/Edite";
 
 const Commune = () => {
   const dispatch = useDispatch();
@@ -22,10 +23,11 @@ const Commune = () => {
 
   const [searchValue, setSearchValue] = useState("");
   const [newItem, setNewItem] = useState("");
+  const [detailsItemId, setDetailsItemId] = useState(null);
+  const [editItemId, setEditItemId] = useState(null);
   const [showCreate, setShowCreate] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
-  const [detailsItem, setDetailsItem] = useState(null);
-
+  const [editeMode,setEditeMode]= useState(false)
   const filterCommunes = communes
     ? communes.filter((c) =>
         c.nom.toLowerCase().includes(searchValue.toLowerCase())
@@ -47,17 +49,27 @@ const Commune = () => {
   };
 
   const handleItemeChange = (value) => {
+
     setNewItem(value);
   };
   const hendelDetailsCklick = (id) => {
-    setDetailsItem((prev) => id);
+    setDetailsItemId((prev) => id);
     setShowDetails(true);
   };
   const handleCloseDeatils = () => {
     setShowDetails(false);
-    setDetailsItem(prev=>null)
+    setDetailsItemId(prev=>null)
     dispatch(communeAction.getCommuneById(null))
   };
+  const handelEditeMode = (id)=>{
+    setEditeMode(true)
+    setEditItemId(prev=>id)
+   
+  }
+  const handleCloseEdite=()=>{
+    setEditeMode(false)
+    setEditItemId(prev=>null)
+  }
   return (
     <div className="commune d-flex flex-column w-100  mt-2 shadow-lg">
       <div className="table-title w-100 d-flex justify-content-between align-items-center gap-1">
@@ -80,6 +92,7 @@ const Commune = () => {
             className="table"
             communes={filterCommunes}
             hendelDetailsCklick={hendelDetailsCklick}
+            handelEditeMode={handelEditeMode}
           />
         )}
       </div>
@@ -93,8 +106,16 @@ const Commune = () => {
       )}
       {showDetails && (
         <Details
-          detailsItem={detailsItem}
+          detailsItemId={detailsItemId}
           handleCloseDeatils={handleCloseDeatils}
+        />
+      )}
+      {editeMode && (
+        <Edite
+          editItemId={editItemId}
+          
+          handleCloseEdite={handleCloseEdite}
+         
         />
       )}
     </div>

@@ -7,7 +7,7 @@ import {
 import Btn from "../../../components/share/Btn";
 import BtnCheckbox from "../../../components/share/BtnCheckbox";
 
-const Table = ({ communes = [], className,hendelDetailsCklick }) => {
+const Table = ({ communes = [], className,hendelDetailsCklick,handelEditeMode }) => {
   const [selectedRows, setSelectedRows] = useState([]);
 
   const handleRowCheckboxChange = (id) => {
@@ -26,7 +26,7 @@ const Table = ({ communes = [], className,hendelDetailsCklick }) => {
   };
   const handelEditeCklick = (e, id) => {
     e.stopPropagation();
-    console.log("edite", id);
+    handelEditeMode(id)
   };
   const handelDeleteCklick = (e, id) => {
     e.stopPropagation();
