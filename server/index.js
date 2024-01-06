@@ -6,7 +6,7 @@ const { PORT } = require("dotenv").config().parsed;
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin: 'http://localhost:3000',}));
 
 const CommuneRouter = require("./classes/commune/router");
 const EtablissementRouter = require("./classes/etablissement/router");

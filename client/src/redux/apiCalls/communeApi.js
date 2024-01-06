@@ -23,6 +23,24 @@ export const getAllCommunes = () => {
   };
 };
 
+export const getCommuneById = (id) => {
+  return async (dispatch) => {
+    try {
+      
+
+      const data = await request.get(`/api/communes/${id}`);
+      dispatch(communeAction.setError(null));
+      dispatch(communeAction.getCommuneById(data.data)); 
+
+      dispatch(communeAction.setLoading(false));
+    } catch (error) {
+      dispatch(communeAction.setLoading(false));
+      dispatch(communeAction.setError(error.data.data.message));
+      console.log(error);
+    }
+  };
+};
+
 export const addCommunes = (commune) => {
   return async (dispatch) => {
   

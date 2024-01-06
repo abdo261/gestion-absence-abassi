@@ -10,23 +10,7 @@ button.refrech-btn{
     border: none;
     padding: 5px;
 }
-.create {
-    position: fixed; /* Using fixed to cover the entire viewport */
-    top: 50%; /* Position at 50% from the top */
-    left: 50%; /* Position at 50% from the left */
-    transform: translate(-50%, -50%); /* Center the element */
-    backdrop-filter: blur(5px); /* Blur the elements behind it */
-    overflow: auto; /* Enable overflow if needed */
-    z-index: 9999; /* Set a high z-index value to make it appear above other elements */
-  
-    /* Other styling for the element */
-    width: calc(100vw - 10px);
-    height: 200px;
-    background-color: rgba(225, 17, 17, 0.8); /* Example background color with opacity */
-    border-radius: 10px;
-    padding: 20px;
-    /* Additional styling as needed */
-  }
+
   table{
     font-size: smaller;
   }
@@ -49,4 +33,10 @@ div.content{
 }
   }
   
-  
+  .trash-muli{
+    width: 20px;
+  }
+ 
+  input[type="checkbox"] {
+    cursor: pointer;
+  }

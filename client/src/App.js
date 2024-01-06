@@ -9,6 +9,8 @@ import Responsable from "./pages/responsable/Responsable";
 import Absence from "./pages/absence/Absence";
 import Document from "./pages/document/Document";
 import Home from "./pages/home/Home";
+
+
 function App() {
   return (
     <Routes>
@@ -22,6 +24,7 @@ function App() {
         <Route path="document" element={<Document />} />
        
       </Route>
+      
       {/* <Route path="/etablissement" element={<Layout />}>
         <Route index element={<Etablissement />} />
       </Route>

@@ -6,6 +6,7 @@
   --black: #010101;
   --primary-blue: #0C66E4;
   --secondary: #E9F2FF;
+  --secondary-b:rgba(148, 147, 147, 0.49);
 }
 
 * {
@@ -40,9 +41,10 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* background-color: ; */
+  background-color: #F7F8F9 ;
   padding: 0 1rem;
   transition: 0.5s;
+  border-bottom:2px solid var(--secondary-b);
 }
 
 .header-toggle {
@@ -61,7 +63,7 @@ main {
   background-color: var(--first-color);
   padding-top: 1rem;
   transition: 0.5s;
-  border-right: 2px solid rgba(114, 113, 113, 0.49);
+  border-right: 2px solid var(--secondary-b);
 }
 
 .nav {

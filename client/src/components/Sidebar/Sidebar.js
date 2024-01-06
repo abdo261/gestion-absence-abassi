@@ -1,6 +1,7 @@
 import './index.css';
 import { Link, NavLink } from 'react-router-dom';
 import {  BsAward,BsClipboard2Plus,BsPeopleFill, BsBuilding, BsPersonBadge, BsList, BsFileText, BsX,  BsBoxArrowInLeft } from 'react-icons/bs'; // Import Bootstrap icons
+import HeaderRight from './shildren/HeaderRight';
 
 const Sidebar = ({ show, toggleShow }) => {
   const closeIcon = show ? <BsX size={30}/> : <BsList size={30} />;
@@ -41,10 +42,11 @@ const Sidebar = ({ show, toggleShow }) => {
 
   return (
     <>
-      <header className={`bg-secondary-subtle header ${show ? 'space-toggle' : null}`}>
+      <header className={` header ${show ? 'space-toggle' : null}`}>
         <div className='header-toggle' onClick={toggleShow}>
           {closeIcon}
         </div>
+        <HeaderRight />
       </header>
 
       <aside className={`sidebar ${show ? 'show' : null}`}>
