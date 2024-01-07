@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 const Layout = () => {
   const [show, setShow] = useState(false);
   const toggleShow = () => setShow(!show);
@@ -14,7 +15,9 @@ const Layout = () => {
       <Sidebar show={show} toggleShow={toggleShow} />
       <div className="content">
         <Outlet />
-      </div>
+      
+      </div> 
+     
       <ToastContainer
         position="top-center"
         autoClose={4000}

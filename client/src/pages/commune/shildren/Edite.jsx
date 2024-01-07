@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Btn from "../../../components/share/Btn";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -8,11 +8,10 @@ import {
 import SpinerBs from "../../../components/share/SpinerBs";
 import { containsSpecialChars, isEmpty } from "../../../utils/disable";
 import Input from "../../../components/share/Input";
-import {  BsPencilSquare } from "react-icons/bs";
+import { BsPencilSquare } from "react-icons/bs";
 import ErrorAlert from "../../../components/share/ErrorAlert";
 
 const Edite = ({ handleCloseEdite, editItemId }) => {
-
   const [newValue, setNewValue] = useState("");
   const dispatch = useDispatch();
 
@@ -26,12 +25,15 @@ const Edite = ({ handleCloseEdite, editItemId }) => {
   };
 
   const handelChange = (value) => setNewValue((prev) => value);
-   
-  
-  useEffect(() => {
+
+  const getCommuneByIdCallback = useCallback(() => {
     setNewValue("");
     dispatch(getCommuneById(editItemId));
-  }, [editItemId]);
+  }, [dispatch, editItemId]);
+  
+  useEffect(() => {
+    getCommuneByIdCallback();
+  }, [getCommuneByIdCallback]);
   return (
     <div className="  modal ">
       <div className="modal-dialog">
@@ -47,10 +49,11 @@ const Edite = ({ handleCloseEdite, editItemId }) => {
               {!commune && <SpinerBs />}
               {commune && (
                 <Input
-                  defaultValue={commune.nom}
+                  defaultValue={ commune.nom}
                   placeholder="Commune Nom"
                   className="modal-input"
                   onchange={handelChange}
+                  autoFocus={true}
                 />
               )}
               {containsSpecialChars(newValue) && (
@@ -62,14 +65,14 @@ const Edite = ({ handleCloseEdite, editItemId }) => {
               <Btn
                 oncklick={handleCloseEdite}
                 className="annuler"
-                text="annuler"
+                text={!commune ? <SpinerBs /> : "annuler"}
               />
               <Btn
                 // oncklick={handleAddCommune}
                 className={`ajoute ${
                   !isEmpty(newValue) && "btn btn-secondary"
                 }`}
-                text="ajouté"
+                text={!commune ? <SpinerBs /> : "ajouté"}
                 type="submit"
                 disabled={!isEmpty(newValue) || commune.nom === newValue}
               />

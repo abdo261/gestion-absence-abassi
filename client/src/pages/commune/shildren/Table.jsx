@@ -10,6 +10,9 @@ const Table = ({
   hendelDetailsCklick,
   handelEditeMode,
   etablissements,
+  handelDeleteCklick,
+  handelDeleteAll,
+ 
 }) => {
   const [selectedRows, setSelectedRows] = useState([]);
 
@@ -31,13 +34,19 @@ const Table = ({
     e.stopPropagation();
     handelEditeMode(id);
   };
-  const handelDeleteCklick = (e, id) => {
-    e.stopPropagation();
-    console.log("delete", id);
-  };
+
   const handelShowDetailsCklick = (e, id) => {
     e.stopPropagation();
     hendelDetailsCklick(id);
+  };
+  const handelremoveCklick = (e, id) => {
+    e.stopPropagation();
+    handelDeleteCklick(id);
+  };
+  const handelremoveAllCklick = (e) => {
+    e.stopPropagation();
+    handelDeleteAll(selectedRows)
+   
   };
 
   return (
@@ -53,7 +62,8 @@ const Table = ({
                 className="btn btn-danger btn-sm"
                 //   onClick={handleDeleteSelected}
                 disabled={!selectedRows.length > 0}
-                text={<img src="/trash-muli.png" className="trash-muli" />}
+                text={<img src="/trash-muli.png" className="trash-muli"  alt="trash"/>}
+                oncklick={handelremoveAllCklick}
               />
               <BtnCheckbox
                 onchange={handleSelectAll}
@@ -88,19 +98,19 @@ const Table = ({
                   {/* <button className="btn btn-sm"> </button>
                    */}
                   <Btn
-                    className="btn btn-outline-primary btn-sm"
+                    className="btn btn-outline-primary btn-sm rounded-circle"
                     text={<BsEye />}
                     oncklick={(e) => handelShowDetailsCklick(e, c._id)}
                   />
                   <Btn
-                    className="btn btn-outline-dark btn-sm"
+                    className="btn btn-outline-dark btn-sm rounded-circle"
                     text={<BsPencilSquare />}
                     oncklick={(e) => handelEditeCklick(e, c._id)}
                   />
                   <Btn
-                    className="btn btn-outline-danger btn-sm"
+                    className="btn btn-outline-danger btn-sm rounded-circle"
                     text={<BsTrash3 />}
-                    oncklick={(e) => handelDeleteCklick(e, c._id)}
+                    oncklick={(e) => handelremoveCklick(e, c._id)}
                   />
                   <BtnCheckbox
                     onchange={() => handleRowCheckboxChange(c._id)}
@@ -118,6 +128,12 @@ const Table = ({
           </tr>
         )}
       </tbody>
+      <tfoot>
+      <tr>
+        <td colSpan={4} className="test-center table-info"> somthing</td>
+      </tr>
+    </tfoot>
+ 
     </table>
   );
 };

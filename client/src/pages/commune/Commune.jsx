@@ -1,10 +1,10 @@
-import Btn from "../../components/share/Btn";
+
 import "./commune.css";
 import Table from "./shildren/Table";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { addCommunes, getAllCommunes, removeCommune } from "../../redux/apiCalls/communeApi";
-import { BsPlusCircle, BsAward, BsXCircle } from "react-icons/bs";
+import { useCallback, useEffect, useState } from "react";
+import { addCommunes, getAllCommunes, removeCommune, removeMany } from "../../redux/apiCalls/communeApi";
+import { BsPlusCircle, BsAward } from "react-icons/bs";
 import SearchFilter from "./shildren/SearchFilter";
 import Create from "./shildren/Create";
 import SpinerBs from "../../components/share/SpinerBs";
@@ -21,19 +21,25 @@ const Commune = () => {
   );
   const { etablissements } = useSelector( (state) => state.etablissement);
    
+  const getAllCommunesCallback = useCallback(() => {
+    dispatch(getAllCommunes());
+  }, [dispatch]);
+  
+  const getAllEtablissementsCallback = useCallback(() => {
+    dispatch(getAlletablissements());
+  }, [dispatch]);
   
   useEffect(() => {
-
-    dispatch(getAllCommunes())
-    dispatch(getAlletablissements())
-  
-  }, []);
+    getAllCommunesCallback();
+    getAllEtablissementsCallback();
+  }, [getAllCommunesCallback, getAllEtablissementsCallback]);
 
   const [searchValue, setSearchValue] = useState("");
   const [newItem, setNewItem] = useState("");
   const [detailsItemId, setDetailsItemId] = useState(null);
   const [editItemId, setEditItemId] = useState(null);
   const [showCreate, setShowCreate] = useState(false);
+  const [isCloseCreate,setIsCloseCreate]=useState(false)
 
   const filterCommunes = communes
     ? communes.filter((c) =>
@@ -43,16 +49,22 @@ const Commune = () => {
 
   const handleAddClick = () => {
     setShowCreate(true);
+    setIsCloseCreate(false)
   };
 
   const handleCloseCreate = () => {
     setShowCreate(false);
+    setIsCloseCreate(false)
   };
 
-  const handleAddCommune = () => {
+  const handleAddCommune = (e) => {
+    e.preventDefault()
     console.log("Adding commune:", newItem);
     dispatch(addCommunes({ nom: newItem }));
-    setShowCreate(false);
+    setNewItem("")
+ 
+    isCloseCreate && setShowCreate(false);
+
   };
 
   const handleItemeChange = (value) => setNewItem(value);
@@ -68,7 +80,9 @@ const Commune = () => {
 
   const handleCloseEdite = () => {
     setEditItemId((prev) => null);
+     setNewItem('')
     dispatch(communeAction.getCommuneById(null));
+   
   };
   const handelDelete = (id) => {
     //  dispatch(removeCommunes(id))
@@ -76,6 +90,15 @@ const Commune = () => {
       communeAction.setdeleteMessage({
         message: "Êtes-vous sûr de vouloir supprimer la commune ?",
         id,
+      })
+    );
+  };
+  const handelDeleteAll = (ids) => {
+    //  dispatch(removeCommunes(id))
+    dispatch(
+      communeAction.setdeleteMenyMessage({
+        message: "Êtes-vous sûr de vouloir supprimer las communes selectioné ?",
+        ids
       })
     );
   };
@@ -88,15 +111,37 @@ const Commune = () => {
     }).then((isOk) => {
       if (isOk) {
         dispatch(removeCommune(deleteMessage.id));
-       dispatch(communeAction.setdeleteMessage(null));
+        dispatch(communeAction.setdeleteMessage(null));
+      }
+      
+        dispatch(communeAction.setdeleteMessage(null));
+      
+       
+    });
+  }
+  if (deleteMenyMessage) {
+    swal({
+      title: deleteMenyMessage.message,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((isOk) => {
+      if (isOk) {
+        dispatch(removeMany(deleteMenyMessage.ids));
+       dispatch(communeAction.setdeleteMenyMessage(null));
+       
+      }
+      else{
+        dispatch(communeAction.setdeleteMenyMessage(null));
       }
        
     });
   }
+
   return (
     <div className="commune d-flex flex-column w-100  mt-2 shadow-lg">
       <div className="table-title w-100 d-flex justify-content-between align-items-center gap-1">
-        <h1>
+        <h1 className="h2">
           <BsAward /> Liste des Communes
         </h1>
         <SearchFilter
@@ -107,17 +152,19 @@ const Commune = () => {
           <BsPlusCircle size={30} className="btn-ajoute" />
         </div>
       </div>
-      <div className="table-container ">
+      {/* table-container */}
+      <div className=" cadre-table-scroll ">
         {Loading && <SpinerBs />}
         {error && <ErrorAlert error={error}/>}
         {communes && (
           <Table
-            className="table"
+            className="table table-scroll"
             communes={filterCommunes}
             etablissements={etablissements}
             hendelDetailsCklick={hendelDetailsCklick}
             handelEditeMode={handelEditeMode}
-            handelDelete={handelDelete}
+            handelDeleteCklick={handelDelete}
+            handelDeleteAll={handelDeleteAll}
           />
         )}
       </div>
@@ -127,12 +174,17 @@ const Commune = () => {
           handleItemeChange={handleItemeChange}
           handleAddCommune={handleAddCommune}
           handleCloseCreate={handleCloseCreate}
+          setIsCloseCreate={(value)=>setIsCloseCreate(value)}
+          isCloseCreate={isCloseCreate}
+
         />
       )}
       {detailsItemId && (
         <Details
           detailsItemId={detailsItemId}
           handleCloseDeatils={handleCloseDeatils}
+          etablissements={etablissements}
+       
         />
       )}
       {editItemId && (

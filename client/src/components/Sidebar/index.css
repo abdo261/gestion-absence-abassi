@@ -14,7 +14,7 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+h1{font-family: 'Courier New';}
 a {
   text-decoration: none;
 }
@@ -167,3 +167,9 @@ main {
     padding-left: calc(var(--nav-width) + 188px);
   }
 }
+select {
+  cursor: pointer;
+}
+/* .swiper-button-next{
+
+} */

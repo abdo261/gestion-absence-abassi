@@ -5,6 +5,7 @@ const BtnCheckbox = ({
   className = "form-check-input",
   onchange,
   checked,
+  text
 }) => {
     
   return (
@@ -17,6 +18,7 @@ const BtnCheckbox = ({
         role="switch"
         id="flexSwitchCheckDefault"
       />
+     { text && text}
     </div>
   );
 };

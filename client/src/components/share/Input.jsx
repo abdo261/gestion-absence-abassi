@@ -10,6 +10,7 @@ const Input = ({
   classParent,
   className,
   placeholder,
+  autoFocus=false
 }) => {
   const [value, setValue] = useState(defaultValue);
   const handelChange = (e) => {
@@ -31,6 +32,7 @@ const Input = ({
         name={field}
         value={value}
         onChange={handelChange}
+        autoFocus={autoFocus}
       />
     </div>
   );
