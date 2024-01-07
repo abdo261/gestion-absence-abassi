@@ -62,7 +62,6 @@ const Commune = () => {
     console.log("Adding commune:", newItem);
     dispatch(addCommunes({ nom: newItem }));
     setNewItem("")
- 
     isCloseCreate && setShowCreate(false);
 
   };

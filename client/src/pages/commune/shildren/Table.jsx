@@ -59,10 +59,10 @@ const Table = ({
           <th>
             <div className="d-flex flex-nowrap gap-2 justify-content-end me-3">
               <Btn
-                className="btn btn-danger btn-sm"
+                className="btn btn-danger btn-sm rounded-pill d-flex justify-content-between align-items-center remove-all-btn"
                 //   onClick={handleDeleteSelected}
                 disabled={!selectedRows.length > 0}
-                text={<img src="/trash-muli.png" className="trash-muli"  alt="trash"/>}
+                text={<><BsTrash3 size={10}/> {selectedRows.length}</>}
                 oncklick={handelremoveAllCklick}
               />
               <BtnCheckbox
@@ -81,7 +81,7 @@ const Table = ({
             <tr
               key={i}
               onClick={() => handleRowCheckboxChange(c._id)}
-              className={selectedRows.includes(c._id) ? "table-secondary" : ""}
+              className={(selectedRows.includes(c._id) ? "table-secondary " : "" )+" tr"}
             >
               {" "}
               <td>{i}</td>
@@ -98,17 +98,17 @@ const Table = ({
                   {/* <button className="btn btn-sm"> </button>
                    */}
                   <Btn
-                    className="btn btn-outline-primary btn-sm rounded-circle"
+                    className="btn btn-outline-primary btn-sm rounded-circle btn-table"
                     text={<BsEye />}
                     oncklick={(e) => handelShowDetailsCklick(e, c._id)}
                   />
                   <Btn
-                    className="btn btn-outline-dark btn-sm rounded-circle"
+                    className="btn btn-outline-dark btn-sm rounded-circle btn-table"
                     text={<BsPencilSquare />}
                     oncklick={(e) => handelEditeCklick(e, c._id)}
                   />
                   <Btn
-                    className="btn btn-outline-danger btn-sm rounded-circle"
+                    className="btn btn-outline-danger btn-sm rounded-circle btn-table"
                     text={<BsTrash3 />}
                     oncklick={(e) => handelremoveCklick(e, c._id)}
                   />

@@ -16,7 +16,33 @@
     bottom: 0;
   }
 
+.remove-all-btn {
+  width:40px;
+  height:40px;
+  padding: 4px;
+  font-weight: 600;
+  transition: transform 0.3s ease-in-out; 
+}
+.btn-table ,.tr {
+ 
+  transition: transform 0.3s ease-in-out; 
+}
+.remove-all-btn:hover ,.btn-table:hover{
+  transform: scale(1.1); /* Increasing the size on hover */
+  cursor: pointer; /* Changing cursor on hover */
+}
 
+/* tr.tr:hover::after {
+  
+ 
+} */
+tr.tr:hover{
+  transform: scale(0.99);
+  cursor: pointer; 
+  border:2px solid #DEE2E6 ;
+ 
+  z-index: 999;
+}
   .search-filter{
     width: 60%;
   }
