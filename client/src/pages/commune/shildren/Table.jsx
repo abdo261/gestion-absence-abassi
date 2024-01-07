@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import {
-  BsEye,
-  BsPencilSquare,
-  BsTrash3,
-} from "react-icons/bs";
+import { BsEye, BsPencilSquare, BsTrash3 } from "react-icons/bs";
 import Btn from "../../../components/share/Btn";
 import BtnCheckbox from "../../../components/share/BtnCheckbox";
+import { countEtablissementForCommuns } from "../../../utils/findUtils";
 
-const Table = ({ communes = [], className,hendelDetailsCklick,handelEditeMode }) => {
+const Table = ({
+  communes = [],
+  className,
+  hendelDetailsCklick,
+  handelEditeMode,
+  etablissements,
+}) => {
   const [selectedRows, setSelectedRows] = useState([]);
 
   const handleRowCheckboxChange = (id) => {
@@ -26,7 +29,7 @@ const Table = ({ communes = [], className,hendelDetailsCklick,handelEditeMode })
   };
   const handelEditeCklick = (e, id) => {
     e.stopPropagation();
-    handelEditeMode(id)
+    handelEditeMode(id);
   };
   const handelDeleteCklick = (e, id) => {
     e.stopPropagation();
@@ -34,7 +37,7 @@ const Table = ({ communes = [], className,hendelDetailsCklick,handelEditeMode })
   };
   const handelShowDetailsCklick = (e, id) => {
     e.stopPropagation();
-    hendelDetailsCklick(id)
+    hendelDetailsCklick(id);
   };
 
   return (
@@ -50,11 +53,13 @@ const Table = ({ communes = [], className,hendelDetailsCklick,handelEditeMode })
                 className="btn btn-danger btn-sm"
                 //   onClick={handleDeleteSelected}
                 disabled={!selectedRows.length > 0}
-                text={<img src="/trash-muli.png" className="trash-muli"/>}
+                text={<img src="/trash-muli.png" className="trash-muli" />}
               />
               <BtnCheckbox
                 onchange={handleSelectAll}
-                checked={communes.length>0&& selectedRows.length === communes.length}
+                checked={
+                  communes.length > 0 && selectedRows.length === communes.length
+                }
               />
             </div>
           </th>
@@ -71,7 +76,13 @@ const Table = ({ communes = [], className,hendelDetailsCklick,handelEditeMode })
               {" "}
               <td>{i}</td>
               <td>{c.nom}</td>
-              <td>9</td>
+              <td className="h6">
+                {countEtablissementForCommuns(etablissements, c._id)===0 ?(
+                  <span className="text text-secondary">vide</span>
+                ) :(<span className="text text-success">
+                    {countEtablissementForCommuns(etablissements, c._id)}
+                  </span>) }
+              </td>
               <td>
                 <div className=" w-100 d-flex align-items-center justify-content-end gap-2">
                   {/* <button className="btn btn-sm"> </button>
@@ -95,7 +106,6 @@ const Table = ({ communes = [], className,hendelDetailsCklick,handelEditeMode })
                     onchange={() => handleRowCheckboxChange(c._id)}
                     checked={selectedRows.includes(c._id)}
                   />
-                 
                 </div>
               </td>
             </tr>

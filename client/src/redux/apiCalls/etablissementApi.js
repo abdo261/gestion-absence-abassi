@@ -11,6 +11,7 @@ export const getAlletablissements = () => {
       .then((data) => {
         dispatch(etablissementAction.setError(null));
         dispatch(etablissementAction.getEtablissements(data.data));
+        console.log(data.data)
       })
       .catch((error) => {
         dispatch(etablissementAction.setLoading(false));

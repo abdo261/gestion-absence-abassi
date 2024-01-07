@@ -3,9 +3,9 @@ import { BsExclamationTriangle } from "react-icons/bs"
 
 const ErrorAlert = ({ error }) => {
   return (
-    <div class="alert alert-danger d-flex align-items-center" role="alert" >
+    <div class="alert alert-danger d-flex align-items-end fw-bold mt-2" role="alert" >
     <BsExclamationTriangle className="text-danger" size={30}/>
-    <div>
+    <div className="ms-3 ">
      {error && error}
     </div>
   </div>
