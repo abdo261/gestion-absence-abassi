@@ -8,11 +8,11 @@
     overflow-y: scroll;
   }
   .table-scroll thead th {
-    position: sticky;
+ 
     top: 0;
   }
   .table-scroll tfoot td {
-    position: sticky;
+   
     bottom: 0;
   }
 
@@ -28,8 +28,8 @@
   transition: transform 0.3s ease-in-out; 
 }
 .remove-all-btn:hover ,.btn-table:hover{
-  transform: scale(1.1); /* Increasing the size on hover */
-  cursor: pointer; /* Changing cursor on hover */
+  transform: scale(1.1); 
+  cursor: pointer; 
 }
 
 /* tr.tr:hover::after {
@@ -37,23 +37,23 @@
  
 } */
 tr.tr:hover{
-  transform: scale(0.99);
+  /* transform: scale(0.99); */
   cursor: pointer; 
   border:2px solid #DEE2E6 ;
  
-  z-index: 999;
+
 }
   .search-filter{
     width: 60%;
   }
 
   
- /* Define your CSS styles for the modal, modal-dialog, modal-content, input, and buttons */
+
 
 .modal {
   display: block;
   position: fixed;
-  z-index: 999;
+  z-index: 9999999999;
   left: 0;
   top: 0;
   width: 100%;

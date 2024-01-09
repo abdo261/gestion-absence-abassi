@@ -92,12 +92,13 @@ const Commune = () => {
       })
     );
   };
-  const handelDeleteAll = (ids) => {
+  const handelDeleteAll = (ids,cb) => {
     //  dispatch(removeCommunes(id))
     dispatch(
       communeAction.setdeleteMenyMessage({
         message: "Êtes-vous sûr de vouloir supprimer las communes selectioné ?",
-        ids
+        ids,
+        cb:()=>cb()
       })
     );
   };
@@ -111,6 +112,7 @@ const Commune = () => {
       if (isOk) {
         dispatch(removeCommune(deleteMessage.id));
         dispatch(communeAction.setdeleteMessage(null));
+        
       }
       
         dispatch(communeAction.setdeleteMessage(null));
@@ -128,7 +130,7 @@ const Commune = () => {
       if (isOk) {
         dispatch(removeMany(deleteMenyMessage.ids));
        dispatch(communeAction.setdeleteMenyMessage(null));
-       
+        deleteMenyMessage.cb()
       }
       else{
         dispatch(communeAction.setdeleteMenyMessage(null));

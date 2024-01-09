@@ -12,7 +12,6 @@ const Table = ({
   etablissements,
   handelDeleteCklick,
   handelDeleteAll,
- 
 }) => {
   const [selectedRows, setSelectedRows] = useState([]);
 
@@ -43,10 +42,9 @@ const Table = ({
     e.stopPropagation();
     handelDeleteCklick(id);
   };
-  const handelremoveAllCklick = (e) => {
+  const handelremoveAllCklick = (e, cb) => {
     e.stopPropagation();
-    handelDeleteAll(selectedRows)
-   
+    handelDeleteAll(selectedRows, () => setSelectedRows([]));
   };
 
   return (
@@ -62,7 +60,11 @@ const Table = ({
                 className="btn btn-danger btn-sm rounded-pill d-flex justify-content-between align-items-center remove-all-btn"
                 //   onClick={handleDeleteSelected}
                 disabled={!selectedRows.length > 0}
-                text={<><BsTrash3 size={10}/> {selectedRows.length}</>}
+                text={
+                  <>
+                    <BsTrash3 size={10} /> {selectedRows.length}
+                  </>
+                }
                 oncklick={handelremoveAllCklick}
               />
               <BtnCheckbox
@@ -81,17 +83,21 @@ const Table = ({
             <tr
               key={i}
               onClick={() => handleRowCheckboxChange(c._id)}
-              className={(selectedRows.includes(c._id) ? "table-secondary " : "" )+" tr"}
+              className={
+                (selectedRows.includes(c._id) ? "table-secondary " : "") + " tr"
+              }
             >
               {" "}
               <td>{i}</td>
               <td>{c.nom}</td>
               <td className="h6">
-                {countEtablissementForCommuns(etablissements, c._id)===0 ?(
+                {countEtablissementForCommuns(etablissements, c._id) === 0 ? (
                   <span className="text text-secondary">vide</span>
-                ) :(<span className="text text-success">
+                ) : (
+                  <span className="text text-success">
                     {countEtablissementForCommuns(etablissements, c._id)}
-                  </span>) }
+                  </span>
+                )}
               </td>
               <td>
                 <div className=" w-100 d-flex align-items-center justify-content-end gap-2">
@@ -128,12 +134,6 @@ const Table = ({
           </tr>
         )}
       </tbody>
-      <tfoot>
-      <tr>
-        <td colSpan={4} className="test-center table-info"> somthing</td>
-      </tr>
-    </tfoot>
- 
     </table>
   );
 };

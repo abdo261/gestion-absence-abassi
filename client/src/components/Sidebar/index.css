@@ -173,3 +173,46 @@ select {
 /* .swiper-button-next{
 
 } */
+.notification-conatiner{
+  position: relative;
+  cursor: pointer;
+}
+.conter-notifications{
+  position: absolute;
+  top: 0%;
+  right: -2px;
+  padding: 5px;
+  background-color: red;
+  
+}
+.notifications-content {
+  position: absolute;
+  top: calc(100% + 20px);
+  right: -150px ;
+  width: 350px;
+  height: 400px;
+  background: rgba(236, 236, 236, 0.9); /* Semi-transparent background */
+  backdrop-filter: blur(8px); /* Apply a blur effect */
+  z-index: 9999999;
+  border: 1px solid rgb(141, 141, 141);
+  overflow-y: auto;
+}
+a.element-notification{
+  background-color: rgb(168, 167, 167) ;
+  font-weight: 600;
+  position: relative;
+  font-size: 15px;
+}
+.notification-date{
+  position: absolute;
+  right:2px;
+ bottom: 0%;
+  font-size:10px ;
+}
+div.container-element-notification :hover{
+ border-bottom: #0C66E4;
+}
+button.btn-notifications{
+  padding: 3px;
+  width: fit-content;
+}
