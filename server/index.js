@@ -10,8 +10,10 @@ app.use(cors({origin: 'http://localhost:3000',}));
 
 const CommuneRouter = require("./classes/commune/router");
 const EtablissementRouter = require("./classes/etablissement/router");
+const UserRouter = require("./classes/user/router");
 
 app.use("/api/communes", CommuneRouter);
 app.use("/api/etablissements", EtablissementRouter);
+app.use("/api/user", UserRouter);
 
 app.listen(PORT, () => console.log(`server raning in port ${PORT}  => ^_^`));
