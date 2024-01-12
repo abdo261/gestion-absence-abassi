@@ -46,9 +46,7 @@ const register = async (req, res) => {
       .json({ message: "Utilisateur enregistré avec succès." });
   } catch (error) {
     console.log(error);
-    return res
-      .status(500)
-      .json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 };
 
@@ -79,7 +77,24 @@ const login = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    return res.status(200).json({ token });
+    return res.status(200).json({
+      token,
+      user: {
+        _id: user._id,
+        user_type: user.user_type,
+        cin: user.cin,
+        nom: user.nom,
+        prenom: user.prenom,
+        user_name: user.user_name,
+        email: user.email,
+        PPR: user.PPR,
+        etablissement: user.etablissement,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+        isAdmin: user.isAdmin,
+      },
+      message: "Vous êtes connecté avec succès! Félicitations!",
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.message });
@@ -88,48 +103,158 @@ const login = async (req, res) => {
 
 // Controller to change password
 const changePassword = async (req, res) => {
-    try {
-      const { oldPassword, newPassword } = req.body;
-      const user = await User.findById(req.id);
-  
-      if (!user) {
-        return res.status(404).json({ message: "Utilisateur introuvable" });
-      }
-  
-      const isMatch = await bcrypt.compare(oldPassword, user.mot_de_passe);
-      if (!isMatch) {
-        return res.status(400).json({ message: "Ancien mot de passe incorrect" });
-      }
-  
-      const hashedPassword = await bcrypt.hash(newPassword, 10);
-      user.mot_de_passe = hashedPassword;
-      await user.save();
-  
-      return res.status(200).json({ message: "Mot de passe mis à jour avec succès" });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message:error.message });
+  try {
+    const { oldPassword, newPassword } = req.body;
+    const user = await User.findById(req.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur introuvable" });
     }
-  };
-  
-  // Controller to change username
-  const changeUsername = async (req, res) => {
-    try {
-      const { user_name } = req.body;
-      const user = await User.findById(req.id);
-  
-      if (!user) {
-        return res.status(404).json({ message: "Utilisateur introuvable" });
-      }
-  
-      user.user_name = user_name;
-      await user.save();
-  
-      return res.status(200).json({ message: "Nom d'utilisateur mis à jour avec succès" });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: error.message });
+
+    const isMatch = await bcrypt.compare(oldPassword, user.mot_de_passe);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Ancien mot de passe incorrect" });
     }
-  };
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.mot_de_passe = hashedPassword;
+    await user.save();
+
+    return res
+      .status(200)
+      .json({ message: "Mot de passe mis à jour avec succès" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+// Controller to change username
+const changeUsername = async (req, res) => {
+  try {
+    const { user_name } = req.body;
+    const user = await User.findById(req.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "Utilisateur introuvable" });
+    }
+
+    user.user_name = user_name;
+    await user.save();
+
+    return res
+      .status(200)
+      .json({ message: "Nom d'utilisateur mis à jour avec succès" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+const getAllResponsableUsers = async (req, res) => {
+  try {
+    if (!req.isAdmin)
+      return res
+        .status(400)
+        .json({
+          message: "Vous n'avez pas la permission d'effectuer cette action.",
+        });
+
+    const responsableUsers = await User.find({ isAdmin: false });
+
+    return res.status(200).json({ users: responsableUsers });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: error.message });
+  }
+};
+const getResponsableById = async (req, res) => {
+  try {
+    if (!req.isAdmin)
+      return res
+        .status(400)
+        .json({
+          message: "Vous n'avez pas la permission d'effectuer cette action.",
+        });
+
+    const responsableUser = await User.findOne({
+      _id: req.params.id,
+      isAdmin: false,
+    });
+
+    if (!responsableUser) {
+      return res
+        .status(404)
+        .json({
+          message: "Utilisateur introuvable ou n'est pas un responsable",
+        });
+    }
+
+    return res.status(200).json({ user: responsableUser });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+const removeResponsableUser = async (req, res) => {
+  try {
+    if (!req.isAdmin)
+      return res
+        .status(400)
+        .json({
+          message: "Vous n'avez pas la permission d'effectuer cette action.",
+        });
+
+   
+
+    const responsableUser = await User.findOneAndRemove({ _id: req.params.id, isAdmin: false });
+
+    if (!responsableUser) {
+      return res.status(404).json({
+        message: "Utilisateur introuvable ou n'est pas un Responsable.",
+      });
+    }
+
+    return res.status(200).json({ message: "Responsable  "+responsableUser.user_name+"  supprimé avec succès." });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+const updateResponsableUser = async (req, res) => {
+  try {
+    if (!req.isAdmin)
+      return res
+        .status(400)
+        .json({
+          message: "Vous n'avez pas la permission d'effectuer cette action.",
+        });
+
   
-module.exports = { register, login, changePassword, changeUsername };
+    const responsableUser = await User.findOneAndUpdate({ _id: req.params.id, isAdmin: false }, req.body);
+
+    if (!responsableUser) {
+      return res.status(404).json({
+        message: "Utilisateur introuvable ou n'est pas un Responsable.",
+      });
+    }
+
+    return res.status(200).json({ message: "Détails du Responsable "+responsableUser.user_name+" mis à jour avec succès." });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  register,
+  login,
+  changePassword,
+  changeUsername,
+  getAllResponsableUsers,
+  getResponsableById,
+  updateResponsableUser,
+  removeResponsableUser
+};

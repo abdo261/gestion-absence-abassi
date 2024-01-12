@@ -10,7 +10,8 @@ const Input = ({
   classParent,
   className,
   placeholder,
-  autoFocus=false
+  autoFocus=false,
+  require=false
 }) => {
   const [value, setValue] = useState(defaultValue);
   const handelChange = (e) => {
@@ -33,6 +34,7 @@ const Input = ({
         value={value}
         onChange={handelChange}
         autoFocus={autoFocus}
+        required={require}
       />
     </div>
   );

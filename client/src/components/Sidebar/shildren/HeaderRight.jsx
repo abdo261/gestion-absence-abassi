@@ -5,8 +5,10 @@ import { TiCancel } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import BtnCheckbox from "../../share/BtnCheckbox";
-const HeaderRight = () => {
+const HeaderRight = ({user}) => {
   const [showNotifications, setShowNotification] = useState(false);
+ 
+  
   return (
     <div className="d-flex justify-content-center align-items-end gap-3">
       <div className="notification-conatiner ">
@@ -176,8 +178,8 @@ const HeaderRight = () => {
           )}
         
       </div>
-      <Link className="fw-bold d-flex align-items-end nav-link">
-        <span>Abdellah_ait_backikhe</span>
+      <Link className="fw-bold d-flex align-items-end nav-link" to="/profile">
+        <span>{user && user.user.user_name}</span>
         <IoPersonCircleOutline size={39} />
       </Link>
     </div>
